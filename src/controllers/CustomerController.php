@@ -8,6 +8,8 @@
 
 namespace app\controllers;
 
+use app\models\Transaction;
+use yii\db\Query;
 use yii\rest\ActiveController;
 
 class CustomerController extends ActiveController
@@ -25,5 +27,16 @@ class CustomerController extends ActiveController
     {
         $searchModel = new \app\models\CustomerSearch();
         return $searchModel->search(\Yii::$app->request->queryParams);
+    }
+
+    public function actionPointsByCompany($id){
+        $points = (new Query())
+            ->select("SUM(value) AS points, company.*")
+            ->from('transaction')
+            ->leftJoin('company',"transaction.company = company.id")
+            ->where(['=','customer',$id])
+            ->groupBy('company','id')
+            ->all();
+        return $points;
     }
 }
