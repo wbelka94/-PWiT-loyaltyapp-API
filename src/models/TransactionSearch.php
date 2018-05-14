@@ -18,7 +18,7 @@ class TransactionSearch extends Transaction
     public function rules()
     {
         return [
-            [['id', 'value', 'cupon', 'customer', 'company'], 'integer'],
+            [['id', 'value', 'coupon', 'customer', 'company'], 'integer'],
         ];
     }
 
@@ -60,7 +60,7 @@ class TransactionSearch extends Transaction
         $query->andFilterWhere([
             'id' => $this->id,
             'value' => $this->value,
-            'cupon' => $this->cupon,
+            'coupon' => $this->coupon,
             'customer' => $this->customer,
             'company' => $this->company,
         ]);
