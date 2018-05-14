@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "cupon".
+ * This is the model class for table "coupon".
  *
  * @property int $id
  * @property string $alias

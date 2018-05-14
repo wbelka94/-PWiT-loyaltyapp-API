@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $value
- * @property int $cupon
+ * @property int $coupon
  * @property int $customer
  * @property int $company
  *
@@ -32,7 +32,7 @@ class Transaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['value', 'cupon', 'customer', 'company'], 'integer'],
+            [['value', 'coupon', 'customer', 'company'], 'integer'],
             [['company'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company' => 'id']],
             [['customer'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer' => 'id']],
         ];
@@ -46,7 +46,7 @@ class Transaction extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'value' => 'Value',
-            'cupon' => 'Coupon',
+            'coupon' => 'Coupon',
             'customer' => 'Customer',
             'company' => 'Company',
         ];
