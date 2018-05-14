@@ -8,6 +8,7 @@
 
 namespace app\controllers;
 
+use app\models\CouponSearch;
 use yii\rest\ActiveController;
 
 class CouponController extends ActiveController
@@ -23,7 +24,7 @@ class CouponController extends ActiveController
 
     public function prepareDataProvider()
     {
-        $searchModel = new \app\models\CuponSearch();
+        $searchModel = new CouponSearch();
         return $searchModel->search(\Yii::$app->request->queryParams);
     }
 

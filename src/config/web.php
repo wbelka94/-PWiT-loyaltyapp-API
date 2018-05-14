@@ -51,7 +51,7 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['transaction','coupon','company']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['transaction','coupon']],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'customer',
                     'extraPatterns' => [
                         'GET {id}/pointsByCompany' => 'points-by-company',

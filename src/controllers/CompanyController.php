@@ -8,6 +8,7 @@
 
 namespace app\controllers;
 
+use app\models\Coupon;
 use yii\rest\ActiveController;
 
 class CompanyController extends ActiveController
@@ -25,6 +26,13 @@ class CompanyController extends ActiveController
     {
         $searchModel = new \app\models\CompanySearch();
         return $searchModel->search(\Yii::$app->request->queryParams);
+    }
+
+    public function actionGetCoupons($id){
+        $coupons = Coupon::find()
+            ->where(['=','company',$id])
+            ->all();
+        return $coupons;
     }
 
 }
