@@ -50,7 +50,7 @@ class CouponSearch extends Coupon
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load($params,'filter');
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
