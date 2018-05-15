@@ -5,14 +5,18 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "company".
+ * This is the model class for table "coupon".
  *
  * @property int $id
- * @property string $name
- * @property string $logo
+ * @property string $alias
+ * @property string $title
+ * @property string $description
+ * @property double $value
+ * @property string $type
+ * @property int $company
+ * @property string $icon
  *
- * @property Coupon[] $coupons
- * @property Transaction[] $transactions
+ * @property Company $company0
  */
 class Coupon extends \yii\db\ActiveRecord
 {
@@ -21,7 +25,7 @@ class Coupon extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'company';
+        return 'coupon';
     }
 
     /**
@@ -30,7 +34,13 @@ class Coupon extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'logo'], 'string', 'max' => 50],
+            [['description'], 'string'],
+            [['value'], 'number'],
+            [['company'], 'integer'],
+            [['alias'], 'string', 'max' => 50],
+            [['title', 'icon'], 'string', 'max' => 250],
+            [['type'], 'string', 'max' => 10],
+            [['company'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company' => 'id']],
         ];
     }
 
@@ -41,24 +51,21 @@ class Coupon extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'logo' => 'Logo',
+            'alias' => 'Alias',
+            'title' => 'Title',
+            'description' => 'Description',
+            'value' => 'Value',
+            'type' => 'Type',
+            'company' => 'Company',
+            'icon' => 'Icon',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCoupons()
+    public function getCompany0()
     {
-        return $this->hasMany(Coupon::className(), ['company' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTransactions()
-    {
-        return $this->hasMany(Transaction::className(), ['company' => 'id']);
+        return $this->hasOne(Company::className(), ['id' => 'company']);
     }
 }
