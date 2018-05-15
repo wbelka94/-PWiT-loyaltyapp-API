@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $logo
  *
- * @property Coupon[] $cupons
+ * @property Coupon[] $coupons
  * @property Transaction[] $transactions
  */
 class Company extends \yii\db\ActiveRecord
@@ -29,7 +30,7 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 50],
+            [['name', 'logo'], 'string', 'max' => 50],
         ];
     }
 
@@ -41,13 +42,14 @@ class Company extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'logo' => 'Logo',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCupons()
+    public function getCoupons()
     {
         return $this->hasMany(Coupon::className(), ['company' => 'id']);
     }
