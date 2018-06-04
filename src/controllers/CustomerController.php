@@ -29,14 +29,17 @@ class CustomerController extends ActiveController
         return $searchModel->search(\Yii::$app->request->queryParams);
     }
 
-    public function actionPointsByCompany($id){
+    public function actionPointsByCompany($id,$all=false){
         $points = (new Query())
             ->select("SUM(value) AS points, company.*")
             ->from('transaction')
             ->leftJoin('company',"transaction.company = company.id")
             ->where(['=','customer',$id])
-            ->groupBy('company','id')
-            ->all();
-        return $points;
+            ->orderBy(['points' => SORT_DESC])
+            ->groupBy('company','id');
+        if($all){
+            $points = $points->where('points > 0');
+        }
+        return $points->all();
     }
 }
