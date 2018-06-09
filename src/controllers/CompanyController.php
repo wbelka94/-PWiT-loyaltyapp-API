@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 use app\models\Coupon;
+use Yii;
 use yii\rest\ActiveController;
 
 class CompanyController extends ActiveController
@@ -24,8 +25,9 @@ class CompanyController extends ActiveController
 
     public function prepareDataProvider()
     {
+        $customerID = Yii::$app->request->get('customer');
         $searchModel = new \app\models\CompanySearch();
-        return $searchModel->search(\Yii::$app->request->queryParams);
+        return $searchModel->search(\Yii::$app->request->queryParams,$customerID);
     }
 
     public function actionGetCoupons($id){
