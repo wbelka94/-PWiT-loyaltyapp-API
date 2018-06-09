@@ -43,8 +43,9 @@ class CompanySearch extends Company
     public function search($params, $customerID = null)
     {
         $query = Company::find();
-       // $query->leftJoin("(SUM(transactions.value) AS points, company FROM transaction WHERE customer = $customerID GROUP BY company) p","p.copmpany = comapny.id");
-
+        if($customerID) {
+            $query->leftJoin("(SUM(transactions.value) AS points, company FROM transaction WHERE customer = $customerID GROUP BY company) p", "p.copmpany = comapny.id");
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
