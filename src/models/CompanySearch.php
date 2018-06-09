@@ -45,8 +45,10 @@ class CompanySearch extends Company
     {
 
         if($customerID) {
-            $query = (new Query())->select('company.*, p.points');
-            $query->leftJoin("(SELECT SUM(value) AS points, company FROM transaction WHERE customer = $customerID GROUP BY company) p", "p.company = company.id");
+            $query = (new Query())
+                ->select('company.*, p.points')
+                ->from('company')
+                ->leftJoin("(SELECT SUM(value) AS points, company FROM transaction WHERE customer = $customerID GROUP BY company) p", "p.company = company.id");
         }
         else{
             $query = Company::find();
