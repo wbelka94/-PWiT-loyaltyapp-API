@@ -20,6 +20,7 @@ class CustomerController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
+        unset($actions['create']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
         return $actions;
     }
