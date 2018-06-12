@@ -49,7 +49,7 @@ class CustomerController extends ActiveController
 
     public function actionCreate(){
         $customer = Customer::find()->where(['=','email',$_POST['customer']['email']])->all();
-        if($customer !== null){
+        if($customer === null){
             $model = new Customer();
             $model->load(Yii::$app->getRequest()->getBodyParams(), '');
             if ($model->save()) {
