@@ -63,6 +63,6 @@ class CustomerController extends ActiveController
 
             return $model;
         }
-        return '{"errorMessage":"Użytkownik o podanym adresie email już istnieje"}';
+        return ["errorMessage" => "Użytkownik o podanym adresie email już istnieje"];
     }
 }
