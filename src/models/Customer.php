@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $firstname
  * @property string $lastname
+ * @property string $password
+ * @property string $email
  *
  * @property Transaction[] $transactions
  */
@@ -30,6 +32,7 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             [['firstname', 'lastname'], 'string', 'max' => 50],
+            [['password', 'email'], 'string', 'max' => 200],
         ];
     }
 
@@ -42,6 +45,8 @@ class Customer extends \yii\db\ActiveRecord
             'id' => 'ID',
             'firstname' => 'Firstname',
             'lastname' => 'Lastname',
+            'password' => 'Password',
+            'email' => 'Email',
         ];
     }
 

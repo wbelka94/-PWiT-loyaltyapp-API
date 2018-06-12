@@ -19,7 +19,7 @@ class CustomerSearch extends Customer
     {
         return [
             [['id'], 'integer'],
-            [['firstname', 'lastname'], 'safe'],
+            [['firstname', 'lastname', 'password', 'email'], 'safe'],
         ];
     }
 
@@ -49,7 +49,7 @@ class CustomerSearch extends Customer
             'query' => $query,
         ]);
 
-        $this->load($params,'filter');
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -63,7 +63,9 @@ class CustomerSearch extends Customer
         ]);
 
         $query->andFilterWhere(['like', 'firstname', $this->firstname])
-            ->andFilterWhere(['like', 'lastname', $this->lastname]);
+            ->andFilterWhere(['like', 'lastname', $this->lastname])
+            ->andFilterWhere(['like', 'password', $this->password])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }
