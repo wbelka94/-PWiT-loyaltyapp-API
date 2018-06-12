@@ -12,6 +12,7 @@ use app\models\Customer;
 use app\models\Transaction;
 use Yii;
 use yii\db\Query;
+use yii\helpers\Url;
 use yii\rest\ActiveController;
 
 class CustomerController extends ActiveController
