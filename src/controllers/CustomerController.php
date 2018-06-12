@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\models\Customer;
 use app\models\Transaction;
+use Yii;
 use yii\db\Query;
 use yii\rest\ActiveController;
 
