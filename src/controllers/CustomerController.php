@@ -8,6 +8,7 @@
 
 namespace app\controllers;
 
+use app\models\Customer;
 use app\models\Transaction;
 use yii\db\Query;
 use yii\rest\ActiveController;
@@ -41,5 +42,23 @@ class CustomerController extends ActiveController
             $points = $points->where('points > 0');
         }
         return $points->all();
+    }
+
+    public function actionCreate(){
+        $customer = Customer::find()->where(['=','email',$_POST['customer']['email']]);
+        if($customer !== null){
+            $model = new Customer();
+            $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+            if ($model->save()) {
+                $response = Yii::$app->getResponse();
+                $response->setStatusCode(201);
+                $id = implode(',', array_values($model->getPrimaryKey(true)));
+                $response->getHeaders()->set('Location', Url::toRoute([$this->viewAction, 'id' => $id], true));
+            } elseif (!$model->hasErrors()) {
+                throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+            }
+
+            return $model;
+        }
     }
 }
