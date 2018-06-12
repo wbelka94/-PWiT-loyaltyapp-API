@@ -48,7 +48,7 @@ class CustomerController extends ActiveController
     }
 
     public function actionCreate(){
-        $customer = Customer::find()->where(['=','email',$_POST['customer']['email']]);
+        $customer = Customer::find()->where(['=','email',$_POST['customer']['email']])->all();
         if($customer !== null){
             $model = new Customer();
             $model->load(Yii::$app->getRequest()->getBodyParams(), '');
@@ -56,12 +56,13 @@ class CustomerController extends ActiveController
                 $response = Yii::$app->getResponse();
                 $response->setStatusCode(201);
                 $id = implode(',', array_values($model->getPrimaryKey(true)));
-                $response->getHeaders()->set('Location', Url::toRoute([$this->viewAction, 'id' => $id], true));
+                $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
             } elseif (!$model->hasErrors()) {
                 throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
             }
 
             return $model;
         }
+        return '{"errorMessage":"Użytkownik o podanym adresie email już istnieje"}';
     }
 }
