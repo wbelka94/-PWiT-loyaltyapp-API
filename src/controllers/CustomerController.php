@@ -48,10 +48,11 @@ class CustomerController extends ActiveController
     }
 
     public function actionCreate(){
-        $customer = Customer::find()->where(['=','email',$_POST['customer']['email']])->all();
-        if($customer === null){
+        $bodyParams = (Yii::$app->getRequest()->getBodyParams());
+        $customer = Customer::find()->where(['=','email',$bodyParams['customers']['email']])->all();
+        if(sizeof($customer) === 0){
             $model = new Customer();
-            $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+            $model->load(Yii::$app->getRequest()->getBodyParams(), 'customers');
             if ($model->save()) {
                 $response = Yii::$app->getResponse();
                 $response->setStatusCode(201);
